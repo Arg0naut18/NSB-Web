@@ -12,30 +12,12 @@
     <link rel="stylesheet" href="./index.scss"/> -->
     <link rel="stylesheet" type="text/css" href="./static/index.css"/>
     <link rel="icon" href="https://i.imgur.com/bEZivyx.png"/>
-    <style>
-        button {
-            background-color: #00FF00;
-            border: none;
-            color:white;
-            padding:15px 32px;
-            text-align:center;
-            text-decoration:none;
-            display: inline-block;
-            font-size:16px;
-            border-radius: 12px;
-        }
-        button:hover {
-            transform: scale(1.1);
-            cursor: pointer;
-        }
-    </style>
-
-    <title>NOT SO BASIC BOT!</title>
+    <title>NSB Dashboard!</title>
 </head>
 
 <body>
     <div id="pattern">
-    <center><h1 class="title">NOT SO BASIC BOT!</h1></center>
+    <center><h1 class="title">NOT SO BASIC Dashboard!</h1></center>
     </div>
     <!-- Optional JavaScript; choose one of the two! -->
 
@@ -43,13 +25,26 @@
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script> -->
-    <p align="center">
-        {% if not authorized %}
-        <a href="/login"><button class="login-button" type="button">Login through discord</button></a>
-        {% else %}
-        <a href="/dashboard"><button class="dashboard-button" type="button">Open dashboard</button></a>
-        {% endif %}
-    </p>
+    <h3>NSB is in {{guild_count}} servers.</h3>
+    <div class="picker">
+        <h3>Hello {{username}}! Choose the server you wanna manage.</h3>
+        <br />
+        <section class="cards">
+            {% for guild in matching %}
+            <div class="card">
+                <a href="/dashboard/{{guild.id}}">
+                    {% if guild.icon_url is not none %}
+                    <img src="{{guild.icon_url}}" class="{{guild.class_color}}"/>
+                    {% else %}
+                    <img src="https://discordapp.com/assets/3222c936a8c8be1b803cd94861bdfa868.png" class="{{guild.class_color}}"/>
+                    {% endif %}
+                </a>
+                <br/>
+                {{guild.name}}
+            </div>
+            {% endfor %}
+        </section>
+    </div>
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
